@@ -1,4 +1,6 @@
-package academy;
+package academy.interfaces;
+
+import academy.entity.Coach;
 
 import java.util.List;
 

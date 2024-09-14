@@ -1,4 +1,6 @@
-package academy;
+package academy.interfaces;
+
+import academy.entity.Player;
 
 import java.util.List;
 

@@ -1,4 +1,8 @@
-package academy;
+package academy.interfaces;
+
+import academy.entity.Attendance;
+import academy.entity.Player;
+import academy.entity.TrainingSession;
 
 import java.util.List;
 

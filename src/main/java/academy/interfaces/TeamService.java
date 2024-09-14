@@ -1,4 +1,6 @@
-package academy;
+package academy.interfaces;
+import academy.entity.Team;
+
 import java.util.List;
 public interface TeamService {
 

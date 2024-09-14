@@ -1,4 +1,7 @@
-package academy;
+package academy.Impl;
+
+import academy.interfaces.TeamService;
+import academy.entity.Team;
 
 import java.util.ArrayList;
 import java.util.List;
