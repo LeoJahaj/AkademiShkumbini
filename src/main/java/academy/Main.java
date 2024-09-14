@@ -1,6 +1,8 @@
 package academy;
 
+import academy.Impl.AttendanceServiceImpl;
 import academy.Impl.CoachServiceImpl;
+import academy.Impl.PlayerServiceImpl;
 import academy.Impl.TeamServiceImpl;
 import academy.entity.Coach;
 import academy.entity.Player;
@@ -13,53 +15,47 @@ import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
+        TeamServiceImpl teamService = new TeamServiceImpl();
+        CoachServiceImpl coachService = new CoachServiceImpl();
+
+        Coach coach1 = new Coach(1, "John Doe", "UEFA Pro License");
+        coachService.addCoach(coach1);
 
 
-            Coach coach1 = new Coach(1, "John Doe",new Team());
-            manager.getCoachService().addCoach(coach1);
+        Team team1 = new Team(1, "Team A", coach1);
+        teamService.addTeam(team1);
 
-            // Create a team
-            Team team1 = new Team(1, "Team A", coach1);
-            manager.getTeamService().addTeam(team1);
+        PlayerServiceImpl playerService = new PlayerServiceImpl();
+        playerService.addPlayer(new Player(1, "Alice", 20, team1));
+        playerService.addPlayer(new Player(2, "Bob", 22, team1));
+        playerService.addPlayer(new Player(3, "Charlie", 24,team1));
+        playerService.addPlayer(new Player(4, "David", 21, team1));
+        playerService.addPlayer(new Player(5, "Eve", 23,  team1));
+        playerService.addPlayer(new Player(6, "Frank", 25,team1));
+        playerService.addPlayer(new Player(7, "Grace", 20, team1));
+        playerService.addPlayer(new Player(8, "Hank", 22, team1));
+        playerService.addPlayer(new Player(9, "Ivy", 23, team1));
+        playerService.addPlayer(new Player(10, "Jack", 21, team1));
 
-            // Add 5 players manually, one by one
-            Player player1 = new Player(1, "Alice", 20, team1);
-            manager.getPlayerService().addPlayer(player1);
-            team1.addPlayer(player1);
+        AttendanceServiceImpl attendanceService = new AttendanceServiceImpl();
+        TrainingSession session1 = new TrainingSession(1, new Date(), team1);
 
-            Player player2 = new Player(2, "Bob", 22, team1);
-          getPlayerService().addPlayer(player2);
-            team1.addPlayer(player2);
+        attendanceService.getAttendanceByPlayer(session1);
 
-            Player player3 = new Player(3, "Charlie", 24,team1);
-            manager.getPlayerService().addPlayer(player3);
-            team1.addPlayer(player3);
 
-            Player player4 = new Player(4, "David", 21,  team1);
-            manager.getPlayerService().addPlayer(player4);
-            team1.addPlayer(player4);
+        for (Player player : team1.getPlayers()) {
+            boolean attended = player.getId() % 2 == 0;
+            recordAttendance(player, session1, attended);
+        }
 
-            Player player5 = new Player(5, "Eve", 23, team1);
-            manager.getPlayerService().addPlayer(player5);
-            team1.addPlayer(player5);
 
-            // Schedule a training session
-            TrainingSession session1 = new TrainingSession(1, new Date(), team1);
-            manager.getTrainingSessionService().scheduleTrainingSession(session1);
-
-            // Record attendance for all players
-            for (Player player : team1.getPlayers()) {
-                boolean attended = player.getId() % 2 == 0; // Alternate attendance for demonstration
-                manager.getAttendanceService().recordAttendance(player, session1, attended);
-            }
-
-            // Print team details and attendance
-            System.out.println("Team: " + team1.getName() + ", Coach: " + coach1.getName());
-            for (Player player : team1.getPlayers()) {
-                System.out.println("Attendance for " + player.getName() + ": " +
-                        manager.getAttendanceService().getAttendanceByPlayer(player));
-            }
+        System.out.println("Team: " + team1.getName() + ", Coach: " + coach1.getName());
+        for (Player player : team1.getPlayers()) {
+            System.out.println("Attendance for " + player.getName() + ": " +
+                    getAttendanceByPlayer(player));
         }
     }
+}
+
 
 
